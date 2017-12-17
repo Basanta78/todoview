@@ -6,10 +6,10 @@ class SearchField extends Component {
     this.state = {
       search: "",
       todoLists:props.todoLists
-
-    }
+    };
     this.updateSearch = this.updateSearch.bind(this);
   }
+
   updateSearch(event){
     this.setState({
       search:event.target.value
@@ -23,7 +23,6 @@ class SearchField extends Component {
              value={this.state.search}
              onChange={this.updateSearch}
       />
-
     );
   }
 }
