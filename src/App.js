@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import MainWrapper from "./Components/mainWrapper";
+import MainWrapper from "./Components/MainWrapper";
 
 
 class App extends Component {

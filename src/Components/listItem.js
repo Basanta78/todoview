@@ -5,12 +5,15 @@ class ListItem extends Component {
   constructor (props) {
     super(props);
     this.state={
-      todoList:props.todoList,
+      todoList:{
+        task: "",
+        details: ""
+      },
       editing :false
     };
 
   this.deleteList = this.deleteList.bind(this);
-  this.edit = this.edit.bind(this);
+  this.toggleEdit = this.toggleEdit.bind(this);
   this.editList = this.editList.bind(this);
   this.saveList = this.saveList.bind(this);
   this.editTask = this.editTask.bind(this);
@@ -18,9 +21,13 @@ class ListItem extends Component {
 
   }
 
-  edit(event){
+  toggleEdit(event){
     event.preventDefault();
     this.setState({
+      todoList:{
+        task: this.props.todoList.task,
+        details: this.props.todoList.details
+      },
       editing: true
     });
   }
@@ -28,48 +35,44 @@ class ListItem extends Component {
   editList(){
     return(
       <div>
-        <input type="text" value={this.state.todoList.task} ref="task" onChange={this.editTask}/>
-        <input type="text" value={this.state.todoList.details} ref="details" onChange={this.editDetails}/>
+        <input type="text" value={this.state.todoList.task} onChange={this.editTask}/>
+        <input type="text" value={this.state.todoList.details}  onChange={this.editDetails}/>
         <button type="submit" onClick={this.saveList}>Save</button>
       </div>
     )
   }
 
-  editTask(event){
+  editTask(e){
     this.setState({
       todoList:{
-        task: event.target.value
+        task: e.target.value,
+        details: this.state.todoList.details
       }
     });
   }
 
-  editDetails(event){
+  editDetails(e){
     this.setState({
       todoList:{
-        details: event.target.value
+        task: this.state.todoList.task,
+        details: e.target.value
       }
     });
   }
 
   saveList(e){
     e.preventDefault();
-    let task = this.refs.task.value;
-    let details = this.refs.details.value;
+    console.log(this.state.todoList);
     this.setState({
-      todoList:{
-        task: task,
-        details: details
-      },
-      editing: true
-
+      editing: false
       });
+    //api call
   }
 
   deleteList(e){
     e.preventDefault();
-    this.setState({
-      todoList:{}
-    });
+    console.log(e.target.id);
+   //api call
   }
 
   render() {
@@ -79,9 +82,9 @@ class ListItem extends Component {
     else {
       return (
         <div>
-          <li onClick={this.edit}>{this.state.todoList.task} </li>
-          <li>{this.state.todoList.details} </li>
-          <button type="submit" onClick={this.deleteList} id={this.state.todoList.id}>Delete</button>
+          <li onClick={this.toggleEdit}>{this.props.todoList.task} </li>
+          <li>{this.props.todoList.details} </li>
+          <button type="submit" onClick={this.deleteList} id={this.props.todoList.id}>Delete</button>
         </div>
       )
     } 
