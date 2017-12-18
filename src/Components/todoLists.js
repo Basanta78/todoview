@@ -36,9 +36,7 @@ class TodoLists extends Component {
         </form>
       <ul>
         {this.state.todoLists.map((todoList  =>{
-          return (<div><ListItem todoList ={todoList} key={todoList.id} />
-
-                  </div>)
+          return (<ListItem todoList ={todoList} key={todoList.id} />)
         }))}
       </ul>
       </div>

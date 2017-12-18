@@ -53,16 +53,16 @@ class ListItem extends Component {
 
   saveList(e){
     e.preventDefault();
-    // console.log(this.refs);
     let task = this.refs.task.value;
     let details = this.refs.details.value;
     this.setState({
       todoList:{
         task: task,
         details: details
-      }
+      },
+      editing: true
+
       });
-    this.state.editing =false;
   }
 
   deleteList(e){
