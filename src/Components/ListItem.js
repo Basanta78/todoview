@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class ListItem extends Component {
 
@@ -62,20 +64,31 @@ class ListItem extends Component {
 
   saveList(e){
     e.preventDefault();
-    console.log(this.state.todoList);
     this.setState({
       editing: false
       });
     //api call
+    axios.put('todo/'+this.props.todoList.id,{
+      "task": this.state.todoList.task,
+      "details": this.state.todoList.details
+    }).then(
+      () => this.props.getTodo()
+    )
   }
 
   deleteList(e){
     e.preventDefault();
-    console.log(e.target.id);
+    let id =  e.target.id;
+    axios.delete('todo/'+id).then(
+      () => this.props.getTodo()
+    )
    //api call
+
+
   }
 
   render() {
+    // console.log(this.props.todoList.tags.tag);
     if(this.state.editing){
      return this.editList()
     }

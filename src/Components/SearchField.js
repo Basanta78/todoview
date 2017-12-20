@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListItem from './listItem'
+import ListItem from './ListItem'
 
 class SearchField extends Component {
 
@@ -19,10 +19,8 @@ class SearchField extends Component {
   }
   render() {
     let filterTodo = this.props.todoLists.filter((todo) => {
-      console.log(todo.details);
       return todo.details.indexOf( this.state.search ) !== -1;
     });
-    console.log(filterTodo);
 
     return (
       <div>
@@ -33,7 +31,7 @@ class SearchField extends Component {
       />
       <ul>
       {filterTodo.map((todoList => {
-        return (<ListItem todoList = {todoList} key = {todoList.id} />)
+        return (<ListItem getTodo = {this.props.getTodo}  todoList = {todoList} key = {todoList.id} />)
       }))}
       </ul>
       </div>
