@@ -52,8 +52,6 @@ class MainWrapper extends Component {
     this.addTodo = this.addTodo.bind(this);
   }
   componentDidMount () {
-    console.log("post");
-    // Send a POST request
     axios({
       method: 'post',
       url: 'http://127.0.0.1:8848/api/login',
@@ -61,22 +59,25 @@ class MainWrapper extends Component {
         email: 'user1@gmail.com',
         password: 'user1pass'
       }
-    }).then(res=> {console.log("login",res.data.data.token.refresh);
+    }).then(res=>
+    {
+      console.log("login",res.data.data.token.refresh);
       config.headers.Authorization = 'Bearer ' + res.data.data.token.access;
-    refreshConfig.headers.Authorization = 'Bearer ' + res.data.data.token.refresh;
-      this.getTodo();}).catch(err=> console.log(err));
+      refreshConfig.headers.Authorization = 'Bearer ' + res.data.data.token.refresh;
+      this.getTodo();
+    })
+      .catch(err=> err);
 
   }
   getTodo (){
-
     axios.get( `todo`, config)
       .then( res => {
         if(res) {
           this.setState ( { todoList: res.data.data.Todos } );
         }
       });
-    console.log("get called",config);
   }
+
   addTodo( todo ) {
     axios.post( 'todo', {
       "task": todo.todoList.task,

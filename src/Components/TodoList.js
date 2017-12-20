@@ -5,10 +5,8 @@ class TodoList extends Component {
   constructor (){
     super();
     this.state = {
-      todoList: {
         task: "",
         details: ""
-      }
     };
     this.addTodo = this.addTodo.bind( this );
     this.handleChangeTask = this.handleChangeTask.bind( this );
@@ -17,26 +15,30 @@ class TodoList extends Component {
 
   handleChangeTask( e ){
     this.setState ({
-      todoList: {
         task: e.target.value,
-        details: this.state.todoList.details
-      }
+        details: this.state.details
+
     });
   }
   handleChangeDetails( e ){
     this.setState ({
-      todoList: {
-        task: this.state.todoList.task,
+        task: this.state.task,
         details: e.target.value
-      }
-
     })
   }
   addTodo( e ){
     e.preventDefault();
-    this.props.addTodo({
-      todoList: this.state.todoList
-    })
+    this.props.addTodo( {
+      todoList: {
+        'task': this.state.task,
+        'details': this.state.details
+
+      }
+    });
+    // this.setState({
+    //     task: "",
+    //     details: ""
+    // })
 
   }
 
@@ -45,8 +47,8 @@ class TodoList extends Component {
    return (
       <div>
         <form onSubmit = { this.addTodo }>
-          <input type = "text" value={ this.state.todoList.task } onChange = { this.handleChangeTask }/>
-          <input type = "text" value= { this.state.todoList.details } onChange = { this.handleChangeDetails }/>
+          <input type = "text" value={ this.state.task } onChange = { this.handleChangeTask }/>
+          <input type = "text" value= { this.state.details } onChange = { this.handleChangeDetails }/>
           <button type = "submit">Add todo</button>
         </form>
       </div>
