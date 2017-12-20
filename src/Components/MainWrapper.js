@@ -79,17 +79,17 @@ class MainWrapper extends Component {
   }
 
   addTodo( todo ) {
+    let todoList = this.state.todoList.slice();
     axios.post( 'todo', {
       "task": todo.todoList.task,
       "details": todo.todoList.details
     })
-      .then( () =>  {
-        this.getTodo();
-
-      })
-      .catch( function ( error ) {
-        console.log( error );
-      });
+      .then(res => {
+          todoList.push(res.data.data);
+          this.setState({todoList});
+        }
+      )
+      .catch( err => err );
   }
 
 
