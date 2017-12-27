@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
-import ListItem from './ListItem'
+import ListItem from './ListItem';
+import { connect } from 'react-redux';
 
-class SearchField extends Component {
+const SearchField = ( props ) => {
 
-  constructor ( props ){
-    super( props );
-    this.state = {
-      search: "",
-      todoLists:''
-    };
-    this.updateSearch = this.updateSearch.bind(this);
-  }
-
-  updateSearch(event){
+ const updateSearch = (event) => {
     this.setState({
       search:event.target.value
     });
   }
-  render() {
-    let filterTodo = this.props.todoLists.filter((todo) => {
-      return todo.details.indexOf( this.state.search ) !== -1;
-    });
-
+ console.log(props.state.todoList.Todos)
     return (
       <div>
-      <input type="text"
-             placeholder="search"
-             value={this.state.search}
-             onChange={this.updateSearch}
-      />
+        <form>
+          <div className="form-row">
+              <input type="text"
+                     placeholder="search"
+                     value=''
+                     onChange={this.updateSearch}
+              />
+          </div>
+        </form>
+
       <ul>
-      {filterTodo.map((todoList => {
+      {[].map((todoList => {
         return (<ListItem getTodo = {this.props.getTodo}  todoList = {todoList} key = {todoList.id} />)
       }))}
       </ul>
@@ -38,6 +31,10 @@ class SearchField extends Component {
 
     );
   }
-}
 
-export default SearchField;
+const matchStatetoProps = (state) =>({state})
+
+
+const SearchFieldApp = connect(matchStatetoProps)(SearchField)
+
+export default SearchFieldApp;

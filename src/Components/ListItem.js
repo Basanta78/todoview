@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+// import * as TodoService from '../services/TodoService';
+import {config} from './MainWrapper';
 
 
 class ListItem extends Component {
@@ -41,6 +43,7 @@ class ListItem extends Component {
         <input type="text" value={this.state.todoList.details}  onChange={this.editDetails}/>
         <button type="submit" onClick={this.saveList}>Save</button>
       </div>
+
     )
   }
 
@@ -67,13 +70,14 @@ class ListItem extends Component {
     this.setState({
       editing: false
       });
-    //api call
-    axios.put('todo/'+this.props.todoList.id,{
+    axios.put( 'todo/'+this.props.todoList.id, {
       "task": this.state.todoList.task,
       "details": this.state.todoList.details
-    }).then(
+    }, config )
+      .then(
       () => this.props.getTodo()
     )
+      .catch( err => err )
   }
 
   deleteList(e){
@@ -82,9 +86,6 @@ class ListItem extends Component {
     axios.delete('todo/'+id).then(
       () => this.props.getTodo()
     )
-   //api call
-
-
   }
 
   render() {
@@ -95,9 +96,20 @@ class ListItem extends Component {
     else {
       return (
         <div>
-          <li onClick={this.toggleEdit}>{this.props.todoList.task} </li>
-          <li>{this.props.todoList.details} </li>
-          <button type="submit" onClick={this.deleteList} id={this.props.todoList.id}>Delete</button>
+          <div className = "row">
+          <li className = "list-group-item list-group-item-info " onClick={this.toggleEdit}>Task: {this.props.todoList.task} </li>
+          </div>
+          <div className = "row">
+            <li className = "list-group-item list-group-item-info" >Details:{this.props.todoList.details} </li>
+          </div>
+          <ul>
+            { this.props.todoList.tags.map(( tag =>
+                <div className= "badge badge-primary"> {tag.tag }</div>
+            ))}
+          </ul>
+
+          <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={this.toggleEdit} id={this.props.todoList.id}>Edit</button>
+          <button className = "btn btn-danger" type="submit" onClick={this.deleteList} id={this.props.todoList.id}>Delete</button>
         </div>
       )
     } 

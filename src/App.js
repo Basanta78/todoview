@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import MainWrapper from "./Components/MainWrapper";
+import Route from "./Route/Route";
 
 class App extends Component {
   render() {
     return (
-        <MainWrapper/>
+         <Route/>
     );
   }
 }

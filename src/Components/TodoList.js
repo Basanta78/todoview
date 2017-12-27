@@ -35,10 +35,6 @@ class TodoList extends Component {
 
       }
     });
-    // this.setState({
-    //     task: "",
-    //     details: ""
-    // })
 
   }
 
@@ -46,11 +42,23 @@ class TodoList extends Component {
   render() {
    return (
       <div>
-        <form onSubmit = { this.addTodo }>
-          <input type = "text" value={ this.state.task } onChange = { this.handleChangeTask }/>
-          <input type = "text" value= { this.state.details } onChange = { this.handleChangeDetails }/>
-          <button type = "submit">Add todo</button>
+        <form className = "form-inline" onSubmit = { this.addTodo }>
+          Task <input className = "form-control" type = "text" value={ this.state.task } onChange = { this.handleChangeTask }/>
+           Details <input className = "form-control" type = "text" value= { this.state.details } onChange = { this.handleChangeDetails }/>
+          <button className = "btn btn-primary" type = "submit">Add todo</button>
         </form>
+        <div className="checkbox checkbox-inline">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"/>
+            <label > Book </label>
+        </div>
+        <div className="checkbox checkbox-success checkbox-inline">
+          <input type="checkbox" id="inlineCheckbox2" value="option1"/>
+            <label> Sports </label>
+        </div>
+        <div className="checkbox checkbox-inline">
+          <input type="checkbox" id="inlineCheckbox3" value="option1"/>
+            <label> Music </label>
+        </div>
       </div>
     );
   }
@@ -58,3 +66,4 @@ class TodoList extends Component {
 }
 
 export default TodoList;
+

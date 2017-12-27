@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import SearchField from "./SearchField";
 import TodoList from './TodoList';
+import * as TodoService from '../services/TodoService';
 import axios from 'axios';
+import {applyMiddleware, createStore} from "redux";
+import logger from "redux-logger";
+import {getTodo} from '../actions/index';
+
 axios.defaults.baseURL = 'http://127.0.0.1:8848/api/users/1/';
 
 let refreshConfig ={
@@ -17,8 +22,10 @@ let config = {
 
 async function getAcessToken (  ) {
   try{
+    refreshConfig.headers.Authorization = "Bearer " + localStorage.getItem("refreshToken");
     let tokens = await axios.get('http://127.0.0.1:8848/api/login/refresh',refreshConfig);
-    config.headers.Authorization = 'Bearer ' + tokens.data;
+    localStorage.setItem("accessToken",tokens.data)
+    config.headers.Authorization = 'Bearer ' + localStorage.getItem("accessToken");
     return tokens;
   }
   catch (err){
@@ -46,44 +53,37 @@ class MainWrapper extends Component {
   constructor () {
     super ();
     this.state = {
-      todoList: []
+      todoList: [],
+      userCredentials:{
+        email: "",
+        password: ""
+      }
     };
-    this.getTodo = this.getTodo.bind(this);
+    // this.getTodo = this.getTodo.bind(this);
     this.addTodo = this.addTodo.bind(this);
   }
-  componentDidMount () {
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:8848/api/login',
-      data: {
-        email: 'user1@gmail.com',
-        password: 'user1pass'
-      }
-    }).then(res=>
-    {
-      console.log("login",res.data.data.token.refresh);
-      config.headers.Authorization = 'Bearer ' + res.data.data.token.access;
-      refreshConfig.headers.Authorization = 'Bearer ' + res.data.data.token.refresh;
-      this.getTodo();
-    })
-      .catch(err=> err);
-
+  componentDidMount(){
+    // console.log(this.props.getTodo());
+    this.props.getTodo();
   }
-  getTodo (){
-    axios.get( `todo`, config)
-      .then( res => {
-        if(res) {
-          this.setState ( { todoList: res.data.data.Todos } );
-        }
-      });
-  }
+  // getTodo (){
+  //   this.props.getTodo());
+  //   // TodoService.getApiCall( 'todo', config)
+  //   //   .then( res => {
+  //   //     if(res) {
+  //   //       this.setState ( { todoList: res.data.data.Todos } );
+  //   //     }
+  //   //   })
+  //   //   .catch(err => err);
+  // }
 
   addTodo( todo ) {
     let todoList = this.state.todoList.slice();
-    axios.post( 'todo', {
+    let data =  {
       "task": todo.todoList.task,
       "details": todo.todoList.details
-    })
+    };
+    TodoService.postApiCall( 'todo', data, config)
       .then(res => {
           todoList.push(res.data.data);
           this.setState({todoList});
@@ -103,4 +103,4 @@ class MainWrapper extends Component {
   }
 }
 
-export default MainWrapper;
+export { MainWrapper, config, refreshConfig };
