@@ -3,9 +3,6 @@ import SearchField from "./SearchField";
 import TodoList from './TodoList';
 import * as TodoService from '../services/TodoService';
 import axios from 'axios';
-import {applyMiddleware, createStore} from "redux";
-import logger from "redux-logger";
-import {getTodo} from '../actions/index';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8848/api/users/1/';
 
@@ -36,7 +33,6 @@ async function getAcessToken (  ) {
 }
 axios.interceptors.response.use(undefined, (err) => {
   let res = err.response;
-  console.log(err.config.headers);
   if (res.status === 401) {
     return getAcessToken().then(token => {
       err.config.headers.Authorization = config.headers.Authorization;

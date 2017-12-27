@@ -17,12 +17,9 @@ import thunk from "redux-thunk";
 import { Provider } from 'react-redux'
 import Login from '../Components/SLogin';
 import 'bootstrap/dist/css/bootstrap.css';
-import { createLogger } from 'redux-logger';
-import {getTodo} from '../actions/index';
 import Register from '../Components/Register';
 import AuthButton from '../Components/AuthButton';
 import rootReducer from '../reducers/LoginReducer';
-// import {MainWrapper} from '../Components/MainWrapper';
 import MainWrapper from '../ContainerComponent/MainWrapper';
 import PrivateRoute from '../Components/PrivateRoute';
 

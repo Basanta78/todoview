@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ListItem from './ListItem';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,6 @@ const SearchField = ( props ) => {
       search:event.target.value
     });
   }
- console.log(props.state.todoList.Todos)
     return (
       <div>
         <form>

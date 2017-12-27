@@ -12,7 +12,7 @@ const getTodo =(state=INITIALSTATE, action) => {
         didInvalidate: true
     }
     case "FETCH_TODO_START":
-    return {... state, 
+    return {...state, 
       isFetching: true,
       didInvalidate: false
     }

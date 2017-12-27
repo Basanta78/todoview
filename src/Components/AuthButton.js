@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 import Logout from './Logout';
 let isAuthenticated = localStorage["isAuthenticated"];
-console.log((isAuthenticated));
 const AuthButton = withRouter(({ history }) => (
   isAuthenticated==="true" ? (
     <div>
