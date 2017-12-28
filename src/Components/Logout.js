@@ -38,7 +38,8 @@ class Logout extends Component {
   }
   render(){
     const {redirect} = this.state;
-    if(redirect){
+    const isAuthenticated = localStorage.getItem("isAuthenticated")
+    if(isAuthenticated === "false"){
       
         return <Redirect to="/"/>
     }

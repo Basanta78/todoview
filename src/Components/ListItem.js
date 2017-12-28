@@ -89,7 +89,7 @@ class ListItem extends Component {
   }
 
   render() {
-    // console.log(this.props.todoList.tags.tag);
+    console.log(this.props.todoList.task);
     if(this.state.editing){
      return this.editList()
     }
@@ -97,10 +97,10 @@ class ListItem extends Component {
       return (
         <div>
           <div className = "row">
-          <li className = "list-group-item list-group-item-info " onClick={this.toggleEdit}>Task: {this.props.todoList.task} </li>
+          <li className = "list-group-item list-group-item-info " onClick={this.toggleEdit}>Task: {this.props.todoList.task}  </li>
           </div>
           <div className = "row">
-            <li className = "list-group-item list-group-item-info" >Details:{this.props.todoList.details} </li>
+            <li className = "list-group-item list-group-item-info" >Details:{ this.props.todoList.details }</li>
           </div>
           <ul>
             { this.props.todoList.tags.map(( tag =>
@@ -108,7 +108,7 @@ class ListItem extends Component {
             ))}
           </ul>
 
-          <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={this.toggleEdit} id={this.props.todoList.id}>Edit</button>
+            <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={this.toggleEdit} id={this.props.todoList.id}>Edit</button>
           <button className = "btn btn-danger" type="submit" onClick={this.deleteList} id={this.props.todoList.id}>Delete</button>
         </div>
       )

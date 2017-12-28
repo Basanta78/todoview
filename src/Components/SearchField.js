@@ -3,6 +3,7 @@ import ListItem from './ListItem';
 import { connect } from 'react-redux';
 
 const SearchField = ( props ) => {
+  console.log("from search",props.state.todoList.todoList);
 
  const updateSearch = (event) => {
     this.setState({
@@ -22,8 +23,8 @@ const SearchField = ( props ) => {
         </form>
 
       <ul>
-      {[].map((todoList => {
-        return (<ListItem getTodo = {this.props.getTodo}  todoList = {todoList} key = {todoList.id} />)
+      {props.state.todoList.todoList.map((todoList => {
+        return (<ListItem todoList = {todoList}/>)
       }))}
       </ul>
       </div>

@@ -1,9 +1,5 @@
+import { INITIALSTATE } from '../constants/constant'
 
-let INITIALSTATE = {
-  isFetching: false,
-  didInvalidate: false,
-  todoList: [],
- }
  
 const getTodo =(state=INITIALSTATE, action) => {
   switch (action.type) {
@@ -12,16 +8,17 @@ const getTodo =(state=INITIALSTATE, action) => {
         didInvalidate: true
     }
     case "FETCH_TODO_START":
+    console.log('state befores', state);
     return {...state, 
       isFetching: true,
       didInvalidate: false
     }
     case "RECEIVE_TODO":
-    console.log(action.todo)
+    console.log("stae",action.todo)
       return {...state, 
         isFetching: false,
         didInvalidate: false,
-        todoList: action.todo.todoList,
+        todoList: action.todo.Todos,
       }
     default:
       return state
