@@ -1,7 +1,7 @@
 import { INITIALSTATE } from '../constants/constant'
 
  
-const getTodo =(state=INITIALSTATE, action) => {
+const Todo =(state=INITIALSTATE, action) => {
   switch (action.type) {
     case "FETCH_TODO_ERROR":
       return {...state, 
@@ -20,8 +20,17 @@ const getTodo =(state=INITIALSTATE, action) => {
         didInvalidate: false,
         todoList: action.todo.Todos,
       }
+    case "DELETE_TODO":
+    console.log([...state.todoList]);
+
+    const LIST = [...state.todoList].splice(action.id);
+      return {...state, todoList: LIST}
+    case "DELETE_START":
+      return {...state, isDeleting: true }
+    case "DELETE_ERROR":
+      return { ...state, didInvalidate: true }
     default:
       return state
     }
 }
-export default getTodo;
+export default Todo;

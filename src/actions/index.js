@@ -1,9 +1,8 @@
 import * as TodoService from '../services/TodoService';
 import {config} from '../Components/MainWrapper';
-
-export const RECIEVE_TODO = 'RECIEVE_TODO';
-export const REQUEST_TODO = 'REQUEST_TODO';
-
+import { startDelete, onDeleteTodo, errorDelete } from './TodoAction';
+import axios from "axios";
+import { combineReducers } from '../../../../../.cache/typescript/2.6/node_modules/redux';
 
 export const startFetch =() => {
   return {
@@ -35,4 +34,19 @@ export const getTodo = () => {
       return dispatch(errorTodo(err))
       })
     })
+}
+
+export const deleteTodo  = (id) => {
+  console.log("start delete")
+  return ((dispatch) => {
+    console.log("start Delete")
+    dispatch(startDelete)
+    return axios.delete('todo/'+id, config)
+    .then( res => {
+      return dispatch( onDeleteTodo(id))
+    })
+    .catch((err) => {
+      return dispatch(errorDelete(err))
+    })
+  })
 }

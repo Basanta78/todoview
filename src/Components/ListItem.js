@@ -16,7 +16,7 @@ class ListItem extends Component {
       editing :false
     };
 
-  this.deleteList = this.deleteList.bind(this);
+  // this.deleteList = this.deleteList.bind(this);
   this.toggleEdit = this.toggleEdit.bind(this);
   this.editList = this.editList.bind(this);
   this.saveList = this.saveList.bind(this);
@@ -80,16 +80,15 @@ class ListItem extends Component {
       .catch( err => err )
   }
 
-  deleteList(e){
-    e.preventDefault();
-    let id =  e.target.id;
-    axios.delete('todo/'+id).then(
-      () => this.props.getTodo()
-    )
-  }
+  // deleteList(e){
+  //   e.preventDefault();
+  //   let id =  e.target.id;
+  //   axios.delete('todo/'+id).then(  
+  //   )
+  // }
 
   render() {
-    console.log(this.props.todoList.task);
+    console.log(this.props);
     if(this.state.editing){
      return this.editList()
     }
@@ -109,7 +108,7 @@ class ListItem extends Component {
           </ul>
 
             <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={this.toggleEdit} id={this.props.todoList.id}>Edit</button>
-          <button className = "btn btn-danger" type="submit" onClick={this.deleteList} id={this.props.todoList.id}>Delete</button>
+          <button className = "btn btn-danger" type="submit" onClick={this.props.deleteList} id={this.props.todoList.id}>Delete</button>
         </div>
       )
     } 
