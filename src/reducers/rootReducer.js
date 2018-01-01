@@ -1,10 +1,12 @@
 import { reducer as formReducer } from 'redux-form'
 import { combineReducers } from 'redux';
-import todoList from './GetTodo';
+import todo from './GetTodo';
+import auth from './AuthReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
-  todoList,
+  todo,
+  auth,
 
 })
 

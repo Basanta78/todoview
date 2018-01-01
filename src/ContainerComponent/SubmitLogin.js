@@ -1,5 +1,5 @@
 import axios from "axios";
-import { onSubmit } from "../actions/LoginAction";
+import { onSubmit } from "../actions/AuthAction";
 export const onLoginSubmit = (values) => {
   console.log(values)
   axios({

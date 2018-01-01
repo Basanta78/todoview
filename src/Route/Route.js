@@ -19,7 +19,7 @@ import Login from '../Components/SLogin';
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from '../Components/Register';
 import AuthButton from '../Components/AuthButton';
-import rootReducer from '../reducers/LoginReducer';
+import rootReducer from '../reducers/rootReducer';
 import MainWrapper from '../ContainerComponent/MainWrapper';
 import PrivateRoute from '../Components/PrivateRoute';
 

@@ -6,13 +6,13 @@ import {
   Link,
  
 } from 'react-router-dom';
+import { logoutUser } from '../actions/AuthAction';
+import { connect } from  'react-redux';
 
 class Logout extends Component {
   constructor (){
     super();
-    this.state={
-      redirect : false
-    }
+  
     this.submitLogout = this.submitLogout.bind(this);
   }
   submitLogout( e ){
@@ -27,27 +27,31 @@ class Logout extends Component {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.setItem("isAuthenticated",false);
-        this.setState(
-          {
-            redirect: true
-          }
-        )
+      
       })
       .catch(err=> err);
     
   }
   render(){
-    const {redirect} = this.state;
     const isAuthenticated = localStorage.getItem("isAuthenticated")
     if(isAuthenticated === "false"){
       
         return <Redirect to="/"/>
     }
     return (
-            <button className = "btn btn-default" onClick ={this.submitLogout}><Link to = "/Logout">Logout</Link> </button>
+            <button className = "btn btn-default" onClick ={this.props.logoutUser}><Link to = "/Logout">Logout</Link> </button>
               )
 
   }
 
 }
-export default Logout;
+const mapStateToProps = (state) =>({state})
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: ()=> {
+      dispatch(logoutUser())
+    },
+  }
+}
+const LogoutApp = connect(mapStateToProps,mapDispatchToProps)( Logout )
+export default LogoutApp;

@@ -1,6 +1,11 @@
 export const INITIALSTATE = {
-  isFetching: false,
-  didInvalidate: false,
-  isDeleting: false,
+   isFetching: false, 
+   isEditing: false,
+   didInvalidate: false,
+   isDeleting: false,
   todoList: [],
+ }
+ export const AUTHSTATE = {
+   isAuthenticated: false,
+   didInvalidate: false,
  }

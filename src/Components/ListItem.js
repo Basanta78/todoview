@@ -1,119 +1,68 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-// import * as TodoService from '../services/TodoService';
-import {config} from './MainWrapper';
+import React from 'react';
+import { connect } from 'react-redux';
+import { deleteTodo, editTodo } from '../actions/index';
+import { editTask, editDetails,setEditing } from '../actions/TodoAction';
 
 
-class ListItem extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state={
-      todoList:{
-        task: "",
-        details: ""
-      },
-      editing :false
-    };
+const ListItem = (props) => {
 
-  // this.deleteList = this.deleteList.bind(this);
-  this.toggleEdit = this.toggleEdit.bind(this);
-  this.editList = this.editList.bind(this);
-  this.saveList = this.saveList.bind(this);
-  this.editTask = this.editTask.bind(this);
-  this.editDetails = this.editDetails.bind(this);
-
-  }
-
-  toggleEdit(event){
-    event.preventDefault();
-    this.setState({
-      todoList:{
-        task: this.props.todoList.task,
-        details: this.props.todoList.details
-      },
-      editing: true
-    });
-  }
-
-  editList(){
+  const editList = () => {
     return(
       <div>
-        <input type="text" value={this.state.todoList.task} onChange={this.editTask}/>
-        <input type="text" value={this.state.todoList.details}  onChange={this.editDetails}/>
-        <button type="submit" onClick={this.saveList}>Save</button>
+        <input type="text" value={props.todoList.task} onChange={(e) => props.editTodoTask( props.index,e.target.value)}/>
+        <input type="text" value={ props.todoList.details}  onChange={(e) => props.editTodoDetails( props.index,e.target.value)}/>
+        <button type="submit" onClick={() =>  props.saveTodo( props.todoList.id,  props.todoList.task,  props.todoList.details )}>Save</button>
       </div>
 
     )
   }
-
-  editTask(e){
-    this.setState({
-      todoList:{
-        task: e.target.value,
-        details: this.state.todoList.details
-      }
-    });
-  }
-
-  editDetails(e){
-    this.setState({
-      todoList:{
-        task: this.state.todoList.task,
-        details: e.target.value
-      }
-    });
-  }
-
-  saveList(e){
-    e.preventDefault();
-    this.setState({
-      editing: false
-      });
-    axios.put( 'todo/'+this.props.todoList.id, {
-      "task": this.state.todoList.task,
-      "details": this.state.todoList.details
-    }, config )
-      .then(
-      () => this.props.getTodo()
-    )
-      .catch( err => err )
-  }
-
-  // deleteList(e){
-  //   e.preventDefault();
-  //   let id =  e.target.id;
-  //   axios.delete('todo/'+id).then(  
-  //   )
-  // }
-
-  render() {
-    console.log(this.props);
-    if(this.state.editing){
-     return this.editList()
-    }
-    else {
       return (
         <div>
+       { props.state.todo.isEditing ? editList()  :
+     
+        <div>
           <div className = "row">
-          <li className = "list-group-item list-group-item-info " onClick={this.toggleEdit}>Task: {this.props.todoList.task}  </li>
+          <li className = "list-group-item list-group-item-info " onClick={ props.setEditing }> Task: { props.todoList.task}  </li>
           </div>
           <div className = "row">
-            <li className = "list-group-item list-group-item-info" >Details:{ this.props.todoList.details }</li>
+            <li className = "list-group-item list-group-item-info" >Details:{  props.todoList.details }</li>
           </div>
           <ul>
-            { this.props.todoList.tags.map(( tag =>
+            {  props.todoList.tags.map(( tag =>
                 <div className= "badge badge-primary"> {tag.tag }</div>
             ))}
           </ul>
 
-            <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={this.toggleEdit} id={this.props.todoList.id}>Edit</button>
-          <button className = "btn btn-danger" type="submit" onClick={this.props.deleteList} id={this.props.todoList.id}>Delete</button>
+            <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={ props.setEditing } id={ props.todoList.id}>Edit</button>
+          <button className = "btn btn-danger" type="submit" onClick={() => props.deleteTodo( props.todoList.id, props.index)} id={ props.todoList.id}>Delete</button>
+       </div>
+       }
         </div>
       )
     } 
+const matchStatetoProps = (state) =>({state})
+const matchDispatchtoProps = (dispatch) => {
+  return {
+    deleteTodo:( id, index ) => {
+      dispatch(deleteTodo(id,index));
+    },
+    editTodoTask: ( index, task ) => {
+      dispatch(editTask( index, task ));
+    },
+    editTodoDetails: ( index, details) => {
+      dispatch( editDetails( index,details ))
+    },
+    saveTodo: ( id, task, details ) => {
+      dispatch(editTodo(id, task, details))
+    },
+    setEditing: () => {
+      console.log("edit")
+      dispatch(setEditing())
+    }
+    
   }
-
 }
-
-export default ListItem;
+const ListItemApp = connect(matchStatetoProps,matchDispatchtoProps)(ListItem)
+    
+export default ListItemApp;
