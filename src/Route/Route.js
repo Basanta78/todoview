@@ -15,7 +15,9 @@ import Topics from '../Pages/Topics';
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import { Provider } from 'react-redux'
-import Login from '../Components/SLogin';
+import Login from '../Components/Login'
+import Logout from '../Components/Logout'
+// import Login from '../Components/SLogin';
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from '../Components/Register';
 import AuthButton from '../Components/AuthButton';
@@ -50,6 +52,7 @@ const TodoRoute = () => (
       <Route path="/about" component={About}/>
       <Route path="/topics" component={Topics}/>
       {/* <Route path = "/Todo" component = {MainWrapper}/> */}
+      <Route path = "/Logout" component = {Logout} />
       <Route path = "/Login" component = {Login}/>
       <Route path = "/Register" component = {Register}/>
       <PrivateRoute path="/AddTodo" component={MainWrapper}/>

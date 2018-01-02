@@ -55,23 +55,11 @@ class MainWrapper extends Component {
         password: ""
       }
     };
-    // this.getTodo = this.getTodo.bind(this);
     this.addTodo = this.addTodo.bind(this);
   }
   componentDidMount(){
-    // console.log(this.props.getTodo());
     this.props.getTodo();
   }
-  // getTodo (){
-  //   this.props.getTodo());
-  //   // TodoService.getApiCall( 'todo', config)
-  //   //   .then( res => {
-  //   //     if(res) {
-  //   //       this.setState ( { todoList: res.data.data.Todos } );
-  //   //     }
-  //   //   })
-  //   //   .catch(err => err);
-  // }
 
   addTodo( todo ) {
     let todoList = this.state.todoList.slice();

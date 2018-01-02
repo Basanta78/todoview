@@ -2,14 +2,19 @@ import { AUTHSTATE } from '../constants/constant';
 
 const Auth = (state = AUTHSTATE, action) => {
   switch (action.type) { 
+    case "CHANGE_PASSWORD":
+      return { ...state,
+        password: action.password }
+    case "CHANGE_EMAIL":
+        return { ...state,
+        email: action.email }
     case "START_LOGOUT":
       return {...state, 
         didInvalidate: false,
     }
-    case "SUCCESS_LOGOUT":    
+    case "SUCCESS_LOGOUT":  
     return {...state, 
       isAuthenticated: false,
-      didInvalidate: false,
     }
     case "ERROR_LOGOUT":
     return {...state,

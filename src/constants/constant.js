@@ -6,6 +6,8 @@ export const INITIALSTATE = {
   todoList: [],
  }
  export const AUTHSTATE = {
-   isAuthenticated: false,
+   email: "",
+   password: "",
+   isAuthenticated: localStorage.getItem('isAuthenticated'),
    didInvalidate: false,
  }

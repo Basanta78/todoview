@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   Link,
-  withRouter,
 } from 'react-router-dom';
 import Logout from './Logout';
-let isAuthenticated = localStorage["isAuthenticated"];
-const AuthButton = withRouter(({ history }) => (
-  isAuthenticated==="true" ? (
-    <div>
+import { connect } from 'react-redux';
+
+const AuthButton = (props) => {
+  return props.state.isAuthenticated.toString() === "true" ? 
+  ( <div>
     <Logout/>
     </div>
   ) : (
@@ -16,6 +16,7 @@ const AuthButton = withRouter(({ history }) => (
     <button className = "btn btn-default"><Link to = "/Register">Register</Link> </button>
     </div>
   )
-))
-
-export default AuthButton;
+}
+const mapStateToProps = (state) =>({state:state.auth})
+const AuthButtonApp = connect(mapStateToProps)( AuthButton )
+export default AuthButtonApp;

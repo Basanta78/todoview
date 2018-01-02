@@ -2,11 +2,13 @@ import React from 'react';
 import {
   Route,
   Redirect,
-} from 'react-router-dom'
-let isAuthenticated = localStorage.getItem("isAuthenticated");
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAuthenticated==="true" ? (
+} from 'react-router-dom';
+import { connect } from 'react-redux'
+const PrivateRoute = ({ component: Component,state, ...rest }) => (
+  <Route {...rest} render={(props) =>
+   (
+    state.isAuthenticated.toString() === "true" ? 
+    (
       <Component {...props}/>
     ) : (
       <Redirect to={{
@@ -16,4 +18,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     )
   )}/>
 );
-export default PrivateRoute;
+const mapStateToProps = (state) =>({state:state.auth})
+const PrivateRouteApp = connect(mapStateToProps)( PrivateRoute )
+export default PrivateRouteApp;
