@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SearchField from "./SearchField";
-import TodoList from './TodoList';
-import * as TodoService from '../services/TodoService';
+import AddTodoList from './AddTodoList';
 import axios from 'axios';
+import '../css/index.css';
 
 axios.defaults.baseURL = 'http://127.0.0.1:8848/api/users/1/';
 
@@ -45,43 +45,16 @@ axios.interceptors.response.use(undefined, (err) => {
 });
 
 class MainWrapper extends Component {
-
-  constructor () {
-    super ();
-    this.state = {
-      todoList: [],
-      userCredentials:{
-        email: "",
-        password: ""
-      }
-    };
-    this.addTodo = this.addTodo.bind(this);
-  }
   componentDidMount(){
-    this.props.getTodo();
+    this.props.getTodo(1);
+    this.props.getTags();
+
   }
-
-  addTodo( todo ) {
-    let todoList = this.state.todoList.slice();
-    let data =  {
-      "task": todo.todoList.task,
-      "details": todo.todoList.details
-    };
-    TodoService.postApiCall( 'todo', data, config)
-      .then(res => {
-          todoList.push(res.data.data);
-          this.setState({todoList});
-        }
-      )
-      .catch( err => err );
-  }
-
-
   render() {
     return (
         <div className = "mainWrapper">
-          <TodoList addTodo = { this.addTodo } editTodo = { this.addTodo } changeState={ this.changeState } todoList = { this.state.todoList }/>
-          <SearchField getTodo = {this.getTodo} todoLists = { this.state.todoList }/>
+          <AddTodoList />
+          <SearchField />
       </div>
     );
   }

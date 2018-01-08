@@ -1,73 +1,63 @@
-import React, {Component} from 'react';
+import React from 'react';
 import axios from "axios/index";
-
-class Register extends Component {
-  constructor (){
-    super();
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-      redirect: false,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.submitRegister = this.submitRegister.bind(this);
-  }
-  submitRegister( e ){
+import { onChangeEmail, onChangePassword, onChangeName, setRegister } from '../actions/AuthAction';
+import { connect } from 'react-redux';
+import Redirect from 'react-router-dom/Redirect';
+const Register = (props) => {
+ 
+  const submitRegister = ( e ) =>{
     e.preventDefault();
-
-    //handle login
     axios({
       method: 'post',
       url: 'http://127.0.0.1:8848/api/register',
       data: {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
+        name:  props.state.name,
+        email:  props.state.email,
+        password: props.state.password
       }
     })
       .then(res=>
       {
-
-        this.setState(
-          {
-            redirect: true
-          }
-        )
-
+        props.setRegister();
       })
       .catch(err=> err);
 
   }
-  handleChange( e ){
-    let form = {...this.state}
-    form[e.target.name] = e.target.value;
-    // this.setState({
-    //   name: e.target.value || this.state.name,
-    //   email: e.target.value || this.state.email,
-    //   password: e.target.value || this.state.password,
-    // })
-    this.setState(form);
-  }
-  render(){
-    // const {redirect} = this.state;
-    // if(redirect){
-    //   console.log(redirect)
-    //   return <Redirect to="/Todo"/>
-    // }
-    return (
-      <form onSubmit = {this.submitRegister}>
+  
+    return props.state.isRegister ?
+    (
+      <Redirect to = "/Login" />
+    ):(
+      <form onSubmit = { submitRegister}>
         <div className = "form-group">
-        Name <input className = "form-control form-control-lg" type = "text" name = "name" value={this.state.name} onChange = {this.handleChange}/>
-        Email <input className = "form-control form-control-lg" type = "text" name = "email" value={this.state.email} onChange = {this.handleChange}/>
-        Password <input className = "form-control form-control-lg" type = "password" name = "password" value= {this.state.password} onChange = {this.handleChange}/>
+        Name <input className = "form-control form-control-lg" type = "text"  value={ props.state.name} onChange = {(e) => props.onChangeName(e.target.value)}/>
+        Email <input className = "form-control form-control-lg" type = "text"  value={ props.state.email} onChange = {(e) =>  props.onChangeEmail(e.target.value)}/>
+        Password <input className = "form-control form-control-lg" type = "password"  value= { props.state.password} onChange = {(e) =>  props.onChangePassword(e.target.value)}/>
         <button className = "btn btn-primary" type = "submit">Register</button>
         </div>
       </form>
 
     )
 
-  }
+  
 
 }
-export default Register;
+const mapStateToProps = (state) =>({state: state.auth})
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeName: name => {
+      dispatch(onChangeName(name))
+    },
+    onChangeEmail: email => {
+      dispatch(onChangeEmail(email))
+    },
+    onChangePassword: password => {
+      dispatch(onChangePassword(password  ));
+    },
+    submitRegister: () => {
+      dispatch(setRegister())
+    }
+  }
+}
+const RegisterApp = connect(mapStateToProps, mapDispatchToProps)(Register)
+export default RegisterApp;

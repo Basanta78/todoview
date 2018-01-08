@@ -47,8 +47,21 @@ export const editDetails = (index, details ) => {
     details,
   }
 }
-export const setEditing = () => {
+export const setEditing = (taskId) => {
   return {
     type: "SET_EDIT",
+    taskId,
+  }
+}
+export const setMetadata = (metadata) => {
+  return {
+    type: "SET_METADATA",
+    metadata,
+  }
+}
+export const setSearchText = (search) => {
+  return {
+    type: "SET_SEARCHTEXT",
+    search,
   }
 }

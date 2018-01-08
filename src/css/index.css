@@ -26,3 +26,18 @@ li{
 .header{
     background-color: aqua;
 }
+
+.popup {
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 300px;
+    top: 200px;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    color: red;
+}
+
+.mainwrapper {
+    position: relative;
+}

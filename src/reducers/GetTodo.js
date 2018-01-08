@@ -8,7 +8,6 @@ const Todo =(state=INITIALSTATE, action) => {
         didInvalidate: true
     }
     case "FETCH_TODO_START":
-    console.log('state befores', state);
     return {...state, 
       isFetching: true,
       didInvalidate: false
@@ -19,6 +18,18 @@ const Todo =(state=INITIALSTATE, action) => {
         didInvalidate: false,
         todoList: action.todo.Todos,
       }
+    case "RECEIVE_SEARCH_TODO":
+    console.log("action",action.todo.Todos)
+      return { ...state,
+        todoList:action.todo.Todos
+      }
+    case "SET_METADATA":
+    console.log("meta",action.metadata)
+      return { ...state,
+        metadata: action.metadata}
+    case "SET_SEATCHTEXT":
+      return { ...state,
+        searchText:action.search}
 
     case "DELETE_TODO":
     const LIST = [...state.todoList.slice(0,action.index), ...state.todoList.slice(action.index+1)]
@@ -40,11 +51,49 @@ const Todo =(state=INITIALSTATE, action) => {
     case "EDIT_ERROR":
       return { ...state, didInvalidate: true }
     case "EDIT_SUBMIT":
-      return { ...state}
+      return { ...state, isEditing: false }
     case "SET_EDIT":
-      return { ...state, isEditing: true}
+      return { ...state, isEditing: true,editTaskId:action.taskId}
+
+    case "CHANGE_TASK":
+      return { ...state,
+        task: action.task }
+    case "CHANGE_DETAILS":
+        return { ...state,
+        details: action.details }
+    case "START_ADDTODO":
+        return { ...state,
+        didInvalidate: false,
+      }
+    case "SUCCESS_ADDTODO":
+      return { ...state,todoList:[...state.todoList,action.data]
+      }
+    case "ERROR_ADDTODO":
+      return { ...state,
+        didInvalidate: false,}
+
+     case "FETCH_TAGS_ERROR":
+      return {...state, 
+        didInvalidate: true
+    }
+    case "FETCH_TAGS_START":
+    return {...state, 
+      didInvalidate: false
+    }
+    case "RECEIVE_TAGS":
+      return {...state, 
+        didInvalidate: false,
+        tags: action.tags,
+      }
+    case "PUSH_TAG":
+      return{ ...state,inputTags:[...state.inputTags,action.id]
+      }
+    case "POP_TAG":
+    const INDEX = state.inputTags.indexOf(action.id);
+    const TAGLIST = [...state.inputTags.slice(0,INDEX), ...state.inputTags.slice(INDEX+1)]
+      return { ...state, inputTags:TAGLIST}
     default:
-      return state
+      return { ...state}
     }
 }
 export default Todo;

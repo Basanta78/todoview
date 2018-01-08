@@ -6,11 +6,6 @@ import { onChangeEmail, onChangePassword, loginUser } from '../actions/AuthActio
 
 const Login = (props) => {
   const { from } = props.location.state || { from: { pathname: '/' } }
-  console.log("value",props.state.isAuthenticated)
-  let a = (props.state.isAuthenticated === true)? console.log("yes"): console.log("no");
-  // console.log(a);
-
-
   return props.state.isAuthenticated.toString() === "true" ?
     (
       <Redirect to={ from }/>

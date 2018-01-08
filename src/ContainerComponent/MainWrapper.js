@@ -1,12 +1,16 @@
 import { connect } from 'react-redux';
 import {MainWrapper} from  '../Components/MainWrapper';
-import {getTodo} from '../actions/index';
+import {getTodo, getTags } from '../actions/ActionCreator';
 const matchStatetoProps = (state) =>({state})
 const matchDispatchtoProps = (dispatch) => {
   return {
-    getTodo:() => {
-      dispatch(getTodo())
+    getTodo:(page) => {
+      dispatch(getTodo(page))
+    },
+    getTags: () => {
+      dispatch( getTags() )
     }
+
     
   }
 }

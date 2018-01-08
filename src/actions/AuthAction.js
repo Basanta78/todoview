@@ -12,6 +12,17 @@ export const onChangePassword = ( password ) => {
     password,
   }
 }
+export const onChangeName = ( name ) => {
+  return {
+    type: "CHANGE_NAME",
+    name,
+  }
+}
+export const setRegister = ( ) => {
+  return {
+    type: "SET_REGISTER",
+  }
+}
 export const onSubmit = () => {
   return {
     type: "ON_SUBMIT",

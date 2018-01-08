@@ -8,6 +8,12 @@ const Auth = (state = AUTHSTATE, action) => {
     case "CHANGE_EMAIL":
         return { ...state,
         email: action.email }
+    case "CHANGE_NAME":
+      return { ...state,
+        name: action.name }
+    case "SET_REGISTER":
+      return { ...state,
+        isRegisteer: true}
     case "START_LOGOUT":
       return {...state, 
         didInvalidate: false,
