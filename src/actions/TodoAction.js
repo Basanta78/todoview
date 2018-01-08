@@ -65,3 +65,10 @@ export const setSearchText = (search) => {
     search,
   }
 }
+export const reorderItem = (id, index) => {
+  return {
+    type: "REORDER_ITEM",
+    id,
+    index,
+  }
+}

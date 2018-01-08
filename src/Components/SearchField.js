@@ -3,7 +3,11 @@ import ListItem from './ListItem';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { getTodo, searchTodo } from '../actions/ActionCreator';
-import { setSearchText } from '../actions/TodoAction';
+import { setSearchText,reorderItem } from '../actions/TodoAction';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
 
 
 const SearchField = ( props ) => {
@@ -25,7 +29,7 @@ const SearchField = ( props ) => {
 
       <ul>
       {props.state.todoList.map((todoList,index) => {
-        return (<ListItem todoList = {todoList}  index ={index} key ={index}/>)
+        return (<ListItem todoList = {todoList}  reorderTodo = {props.reorderTodo} index ={index} key ={index}/>)
       })}
       </ul>
       <ReactPaginate previousLabel={"previous"}
@@ -53,11 +57,15 @@ const matchDispatchtoProps = (dispatch) => {
     },
     getTodo: (page) => {
       dispatch(getTodo(page.selected+1)) 
-    }
+    },
+    reorderTodo: (itemId, index) =>{
+      dispatch(reorderItem(itemId, index))
+    },
   }
 }
 
 const SearchFieldApp = connect(matchStatetoProps, matchDispatchtoProps)(SearchField)
 
-export default SearchFieldApp;
+export default DragDropContext(HTML5Backend)(SearchFieldApp);
+
  

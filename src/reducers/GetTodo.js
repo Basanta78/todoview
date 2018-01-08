@@ -24,7 +24,6 @@ const Todo =(state=INITIALSTATE, action) => {
         todoList:action.todo.Todos
       }
     case "SET_METADATA":
-    console.log("meta",action.metadata)
       return { ...state,
         metadata: action.metadata}
     case "SET_SEATCHTEXT":
@@ -92,8 +91,40 @@ const Todo =(state=INITIALSTATE, action) => {
     const INDEX = state.inputTags.indexOf(action.id);
     const TAGLIST = [...state.inputTags.slice(0,INDEX), ...state.inputTags.slice(INDEX+1)]
       return { ...state, inputTags:TAGLIST}
+      
+    case "REORDER_ITEM":
+      return { ...state, todoList:reorderList([...state.todoList],action.id,action.index)}
     default:
       return { ...state}
+    }
+    function reorderList (array, value, positionChange) {
+      // var oldIndex = array.indexOf(value);
+      var oldIndex = array.findIndex(x => x.id==value);
+      var list = array[oldIndex];
+      if ( positionChange >= array.length) {
+        var k =  positionChange - array.length;
+        while ((k--) + 1) {
+            array.push(undefined);
+        }
+    }
+            var arrayClone = array.slice();
+    arrayClone.splice( positionChange, 0, arrayClone.splice(oldIndex, 1)[0]);
+      // if (oldIndex > -1){
+      //   var newIndex = (oldIndex + positionChange);
+     
+      //   if (newIndex < 0){
+      //     newIndex = 0
+      //   }else if (newIndex >= array.length){
+      //     newIndex = array.length
+      //   }
+     
+      //   var arrayClone = array.slice();
+      //   arrayClone.splice(oldIndex,1);
+      //   arrayClone.splice(newIndex,0,list);
+        console.log("oldindex",oldIndex,"newIndex",positionChange,"new array",arrayClone)
+        return arrayClone
+      
+      // return array
     }
 }
 export default Todo;

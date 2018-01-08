@@ -21,3 +21,6 @@ export const INITIALSTATE = {
    didInvalidate: false,
    name: "",
  }
+ export const DragTypes = {
+  ITEM: "item"
+};
