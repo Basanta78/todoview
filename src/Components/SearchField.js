@@ -6,6 +6,7 @@ import { getTodo, searchTodo } from '../actions/ActionCreator';
 import { setSearchText,reorderItem } from '../actions/TodoAction';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import moment from 'moment';
 
 
 
@@ -20,6 +21,7 @@ const SearchField = ( props ) => {
         <form>
           <div className="form-row">
               <input type="text"
+              className = "form-control"
                      placeholder="search"
                      value={props.state.searchText}
                      onChange={(e)=>props.handleSearchChange(e.target.value)}
@@ -34,7 +36,6 @@ const SearchField = ( props ) => {
       </ul>
       <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
-                      //  breakLabel={<a href="">...</a>}
                        breakClassName={"break-me"}
                        pageCount={props.state.metadata.pageCount}
                        marginPagesDisplayed={2}
@@ -52,7 +53,7 @@ const matchStatetoProps = (state) =>({state:state.todo})
 const matchDispatchtoProps = (dispatch) => {
   return {
     handleSearchChange:(search) => {
-      dispatch(setSearchText(search)),
+      dispatch(setSearchText(search))
       dispatch(searchTodo(search))
     },
     getTodo: (page) => {

@@ -1,3 +1,5 @@
+import { config } from "../Components/MainWrapper";
+
 
 export const startDelete = () => {
   return {
@@ -70,5 +72,11 @@ export const reorderItem = (id, index) => {
     type: "REORDER_ITEM",
     id,
     index,
+  }
+}
+export const handleDateChange = (date) => {
+  return {
+    type: "CHANGE_DATE",
+    date,
   }
 }

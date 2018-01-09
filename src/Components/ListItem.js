@@ -43,11 +43,9 @@ function dragCollect(connect, monitor) {
 
 const ListItem = (props) => {
   const {
-    name,
     connectDropTarget,
     connectDragPreview,
     connectDragSource,
-    isOver
   } = props;
   const editList = () => {
     return(
@@ -78,9 +76,9 @@ const ListItem = (props) => {
             <li className = "list-group-item list-group-item-info" >Details:{  props.todoList.details }</li>
           </div>
            <ul>
-            {  props.todoList.tags.map(( tag =>
-                <div className= "badge badge-primary"> {tag.tag }</div>
-            ))}
+            {  props.todoList.tags.map(( tag,index) =>
+                <div className= "badge badge-primary" key ={index}> {tag.tag }</div>
+            )}
           </ul> 
           <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={ () =>props.setEditing(props.todoList.id)} id={ props.todoList.id}>Edit</button>
           <button className = "btn btn-danger" type="submit" onClick={() => props.deleteTodo( props.todoList.id, props.index)} id={ props.todoList.id}>Delete</button>
@@ -118,7 +116,6 @@ const matchDispatchtoProps = (dispatch) => {
 }
 const ListItemApp = connect(matchStatetoProps,matchDispatchtoProps)(ListItem)
     
-// export default ListItemApp;
 export default DropTarget(DragTypes.ITEM, itemTarget, dropCollect)(
   DragSource(DragTypes.ITEM,itemSource, dragCollect)(ListItemApp)
 );

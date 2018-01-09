@@ -29,6 +29,9 @@ const Todo =(state=INITIALSTATE, action) => {
     case "SET_SEATCHTEXT":
       return { ...state,
         searchText:action.search}
+    case "CHANGE_DATE":
+      return { ...state,
+      date: action.date }
 
     case "DELETE_TODO":
     const LIST = [...state.todoList.slice(0,action.index), ...state.todoList.slice(action.index+1)]
@@ -98,33 +101,17 @@ const Todo =(state=INITIALSTATE, action) => {
       return { ...state}
     }
     function reorderList (array, value, positionChange) {
-      // var oldIndex = array.indexOf(value);
-      var oldIndex = array.findIndex(x => x.id==value);
-      var list = array[oldIndex];
+      let oldIndex = array.findIndex(x => x.id===value);
       if ( positionChange >= array.length) {
-        var k =  positionChange - array.length;
+        let k =  positionChange - array.length;
         while ((k--) + 1) {
             array.push(undefined);
         }
     }
-            var arrayClone = array.slice();
+    let arrayClone = array.slice();
     arrayClone.splice( positionChange, 0, arrayClone.splice(oldIndex, 1)[0]);
-      // if (oldIndex > -1){
-      //   var newIndex = (oldIndex + positionChange);
-     
-      //   if (newIndex < 0){
-      //     newIndex = 0
-      //   }else if (newIndex >= array.length){
-      //     newIndex = array.length
-      //   }
-     
-      //   var arrayClone = array.slice();
-      //   arrayClone.splice(oldIndex,1);
-      //   arrayClone.splice(newIndex,0,list);
-        console.log("oldindex",oldIndex,"newIndex",positionChange,"new array",arrayClone)
         return arrayClone
       
-      // return array
     }
 }
 export default Todo;

@@ -17,7 +17,6 @@ import thunk from "redux-thunk";
 import { Provider } from 'react-redux'
 import Login from '../Components/Login'
 import Logout from '../Components/Logout'
-// import Login from '../Components/SLogin';
 import 'bootstrap/dist/css/bootstrap.css';
 import Register from '../Components/Register';
 import AuthButton from '../Components/AuthButton';
