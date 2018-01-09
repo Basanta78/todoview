@@ -5,6 +5,8 @@ import { editTask, editDetails,setEditing, onSubmitEdit } from '../actions/TodoA
 import '../css/index.css';
 import { DragSource, DropTarget } from "react-dnd";
 import { DragTypes } from "../constants/constant";
+import moment from 'moment';
+
 
 
 const itemSource = {
@@ -84,7 +86,6 @@ const ListItem = (props) => {
           <button className = "btn btn-danger" type="submit" onClick={() => props.deleteTodo( props.todoList.id, props.index)} id={ props.todoList.id}>Delete</button>
             </div>
        )}
-            
         </div>
       )
     )

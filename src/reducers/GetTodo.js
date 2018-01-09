@@ -102,16 +102,9 @@ const Todo =(state=INITIALSTATE, action) => {
     }
     function reorderList (array, value, positionChange) {
       let oldIndex = array.findIndex(x => x.id===value);
-      if ( positionChange >= array.length) {
-        let k =  positionChange - array.length;
-        while ((k--) + 1) {
-            array.push(undefined);
-        }
-    }
-    let arrayClone = array.slice();
-    arrayClone.splice( positionChange, 0, arrayClone.splice(oldIndex, 1)[0]);
-        return arrayClone
-      
+      let arrayClone = array.slice();
+      arrayClone.splice( positionChange, 0, arrayClone.splice(oldIndex, 1)[0]);
+      return arrayClone;      
     }
 }
 export default Todo;
