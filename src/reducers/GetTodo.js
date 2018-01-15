@@ -19,7 +19,6 @@ const Todo =(state=INITIALSTATE, action) => {
         todoList: action.todo.Todos,
       }
     case "RECEIVE_SEARCH_TODO":
-    console.log("action",action.todo.Todos)
       return { ...state,
         todoList:action.todo.Todos
       }

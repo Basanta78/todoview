@@ -104,9 +104,8 @@ export const getTags = () => {
 }
 export const searchTodo = (search) => {
   return ((dispatch) => {
-   return TodoService.getApiCall(search, config)
+    return TodoService.getApiCall('todo?search='+search, config)
     .then( res => {
-      console.log(res.data.data.Todos)
       dispatch(receiveSearchTodos(res.data.data))
       return dispatch(setMetadata(res.data.data.metadata))
     })
