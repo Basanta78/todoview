@@ -9,6 +9,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { handleDateChange } from '../actions/TodoAction';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
+import BigCalendar from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
+
 const AddTodoList = (props) => {
   const handleCheckInput =  (e) => {
     if(e.target.checked){
@@ -40,6 +44,17 @@ const AddTodoList = (props) => {
         selected={props.state.date}
         onChange={props.handleDateChange}
     />
+    <div>
+    <BigCalendar
+      events={props.state.todoList}
+      startAccessor='createdAt'
+      endAccessor='createdAt'
+      titleAccessor = 'task'
+      drilldownView= 'agenda'
+      views={['month', 'day', 'agenda']}
+      popupOffset={{x: 30, y: 20}}
+    />
+  </div>
       </div>
     );
   }

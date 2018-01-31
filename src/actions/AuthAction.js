@@ -94,6 +94,7 @@ export const loginUser = ( email, password ) => {
         localStorage.setItem("accessToken",res.data.data.token.access);
         localStorage.setItem("refreshToken",res.data.data.token.refresh);
         localStorage.setItem("isAuthenticated", true);
+        localStorage.setItem("id",res.data.data.user.id);
         // config.headers.Authorization = 'Bearer ' + res.data.data.token.access;
         return dispatch(loginSuccess());
         // refreshConfig.headers.Authorization = 'Bearer ' + res.data.data.token.refresh;

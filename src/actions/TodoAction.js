@@ -1,5 +1,3 @@
-import { config } from "../Components/MainWrapper";
-
 
 export const startDelete = () => {
   return {

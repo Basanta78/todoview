@@ -7,6 +7,7 @@ import { DragSource, DropTarget } from "react-dnd";
 import { DragTypes } from "../constants/constant";
 
 
+
 const itemSource = {
   beginDrag(props) {
     return {
@@ -65,10 +66,11 @@ const ListItem = (props) => {
   }
       return connectDropTarget(
         connectDragPreview(
+          connectDragSource (
         <div>
        { props.state.isEditing ? editList()  :null}
-       {connectDragSource (
-        <div> 
+      
+        <div style={{ opacity: props.isDragging ? 0.3 : 1 }}> 
            <div className = "row"> 
           <li className = "list-group-item list-group-item-info " onClick={ () =>props.setEditing(props.todoList.id) }> Task: { props.todoList.task}  </li>
           </div>
@@ -83,9 +85,9 @@ const ListItem = (props) => {
           <button className = "btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={ () =>props.setEditing(props.todoList.id)} id={ props.todoList.id}>Edit</button>
           <button className = "btn btn-danger" type="submit" onClick={() => props.deleteTodo( props.todoList.id, props.index)} id={ props.todoList.id}>Delete</button>
             </div>
-       )}
-            
+       
         </div>
+          )
       )
     )
     

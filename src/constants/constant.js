@@ -13,7 +13,7 @@ export const INITIALSTATE = {
    isRegistered: false,
    metadata: {},
    editTaskId:null,
-   searchText:null,
+   searchText:undefined,
    date:moment()
 
  }
