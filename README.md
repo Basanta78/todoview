@@ -1,6 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+# Todo App
+This app is REACTJS based front end application which support backend api [todoapi](https://github.com/Basanta78/express-starter) with nodejs, express as backend stack. This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+## Installation
+* Clone the repo
+* Yarn or npm install
+* Start backend api [todoapi](https://github.com/Basanta78/express-starter)
+* Yarn start
 
+## Tech stack used:
+- ReactJS
+- Redux
+- Router v4
 
+## Features
+- List Todos
+- Add Todos
+- Todos contains tags
+- Todo Calender based on date
+- Drag and Drop todo list
+- Pagination
+- Search Title and details of todo
+- Routing
+
+## Scripts to run
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
