@@ -1,3 +1,5 @@
+import { config } from "../Components/MainWrapper";
+
 
 export const startDelete = () => {
   return {
@@ -63,5 +65,18 @@ export const setSearchText = (search) => {
   return {
     type: "SET_SEARCHTEXT",
     search,
+  }
+}
+export const reorderItem = (id, index) => {
+  return {
+    type: "REORDER_ITEM",
+    id,
+    index,
+  }
+}
+export const handleDateChange = (date) => {
+  return {
+    type: "CHANGE_DATE",
+    date,
   }
 }

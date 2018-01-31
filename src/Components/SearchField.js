@@ -3,7 +3,12 @@ import ListItem from './ListItem';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { getTodo, searchTodo } from '../actions/ActionCreator';
-import { setSearchText } from '../actions/TodoAction';
+import { setSearchText,reorderItem } from '../actions/TodoAction';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import moment from 'moment';
+
+
 
 
 const SearchField = ( props ) => {
@@ -16,6 +21,7 @@ const SearchField = ( props ) => {
         <form>
           <div className="form-row">
               <input type="text"
+              className = "form-control"
                      placeholder="search"
                      value={props.state.searchText}
                      onChange={(e)=>props.handleSearchChange(e.target.value)}
@@ -25,12 +31,11 @@ const SearchField = ( props ) => {
 
       <ul>
       {props.state.todoList.map((todoList,index) => {
-        return (<ListItem todoList = {todoList}  index ={index} key ={index}/>)
+        return (<ListItem todoList = {todoList}  reorderTodo = {props.reorderTodo} index ={index} key ={index}/>)
       })}
       </ul>
       <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
-                      //  breakLabel={<a href="">...</a>}
                        breakClassName={"break-me"}
                        pageCount={props.state.metadata.pageCount}
                        marginPagesDisplayed={2}
@@ -48,16 +53,20 @@ const matchStatetoProps = (state) =>({state:state.todo})
 const matchDispatchtoProps = (dispatch) => {
   return {
     handleSearchChange:(search) => {
-      dispatch(setSearchText(search)),
+      dispatch(setSearchText(search))
       dispatch(searchTodo(search))
     },
     getTodo: (page) => {
       dispatch(getTodo(page.selected+1)) 
-    }
+    },
+    reorderTodo: (itemId, index) =>{
+      dispatch(reorderItem(itemId, index))
+    },
   }
 }
 
 const SearchFieldApp = connect(matchStatetoProps, matchDispatchtoProps)(SearchField)
 
-export default SearchFieldApp;
+export default DragDropContext(HTML5Backend)(SearchFieldApp);
+
  

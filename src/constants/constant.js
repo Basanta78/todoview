@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const INITIALSTATE = {
    isFetching: false, 
    isEditing: false,
@@ -12,6 +14,7 @@ export const INITIALSTATE = {
    metadata: {},
    editTaskId:null,
    searchText:null,
+   date:moment()
 
  }
  export const AUTHSTATE = {
@@ -21,3 +24,6 @@ export const INITIALSTATE = {
    didInvalidate: false,
    name: "",
  }
+ export const DragTypes = {
+  ITEM: "item"
+};

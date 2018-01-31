@@ -2,6 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { onChangeTask, onChangeDetails, addTodo} from '../actions/AddTodoAction';
 import { pushTag, popTag } from '../actions/TagAction';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+ 
+import 'react-datepicker/dist/react-datepicker.css';
+import { handleDateChange } from '../actions/TodoAction';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 const AddTodoList = (props) => {
   const handleCheckInput =  (e) => {
@@ -23,12 +29,17 @@ const AddTodoList = (props) => {
         </form>
         <ul>
       {props.state.tags.map((tag,index) => {
-      return(   <div className="checkbox checkbox-inline">
+      return(   <div className="checkbox checkbox-inline" key = { index }>
           <input type="checkbox" id={tag.id} onClick = {handleCheckInput}/>
             {tag.tag}
         </div>)
       })}
       </ul>
+      Date:
+      <DatePicker
+        selected={props.state.date}
+        onChange={props.handleDateChange}
+    />
       </div>
     );
   }
@@ -51,6 +62,9 @@ const mapDispatchToProps = dispatch => {
     },
     popTag: (id) => {
       dispatch(popTag(id));
+    },
+    handleDateChange: (date) => {
+      dispatch(handleDateChange(date));
     }
   
   }
